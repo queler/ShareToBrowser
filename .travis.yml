@@ -4,6 +4,9 @@ android:
   - tools
   - build-tools-23.0.2
   - android-22
+  - extra-android-support
+  licenses:
+    - android-sdk-license-.+
 script:
 - "./gradlew assembleDebug"
 deploy:
