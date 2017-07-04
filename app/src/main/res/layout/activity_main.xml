@@ -10,10 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="aq.com.sharetobrowser.MainActivity">
 
-    <TextView
+    <ListView
+        android:id="@+id/linksLV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nothing to do here"
-        android:autoText="false"
-        android:id="@+id/t1"/>
+        android:layout_below="@+id/resultTV"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/resultTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Nothing to show" />
 </RelativeLayout>
