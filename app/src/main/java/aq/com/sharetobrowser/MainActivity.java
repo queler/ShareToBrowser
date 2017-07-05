@@ -38,10 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 handleSendText(intent); // Handle text being sent
             }
         }
-        else {
-            // Handle other intents, such as being started from the home screen
-        }
-
     }
 
     /**
@@ -59,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
         }
         TextView resultTV=(TextView) findViewById(R.id.resultTV);
         if (links.size() > 0) {
-            resultTV.setText("Links Found :");
+            resultTV.setText(R.string.links_found);
             setListView();
             if (links.size() == 1)
                 sendWebIntent(links.get(0));
         }else{
-            this.noLinksFound(sharedText);
+            this.SetNoLinksFoundView(sharedText);
         }
     }
 
@@ -120,16 +116,16 @@ public class MainActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(webIntent, ""));
     }
 
-    private void noLinksFound(final String sharedText){
+    private void SetNoLinksFoundView(final String sharedText){
         TextView resultTV=(TextView) findViewById(R.id.resultTV);
-        resultTV.setText("No links found");
+        resultTV.setText(R.string.not_found);
 
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.globalLayout);
         RelativeLayout.LayoutParams layoutParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
         layoutParam.addRule(RelativeLayout.BELOW, R.id.resultTV);
 
         Button btSendIntent=new Button(this);
-        btSendIntent.setText("Open shared content anyway");
+        btSendIntent.setText(R.string.open_anyway);
         btSendIntent.setLayoutParams(layoutParam);
         btSendIntent.setOnClickListener(new View.OnClickListener() {
             @Override

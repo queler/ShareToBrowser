@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ShareToBrowser</string>
+    <string name="links_found">Links Found :</string>
+    <string name="not_found">No links found</string>
+    <string name="open_anyway">Open shared content anyway</string>
 </resources>
