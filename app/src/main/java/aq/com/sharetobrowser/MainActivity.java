@@ -116,6 +116,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(webIntent, ""));
     }
 
+    /**
+     * Change the textView value to tell that no result where found
+     * Add a button that allow the user to send a webIntent with the
+     * sharedText
+     * @param sharedText from the initial Intent
+     */
     private void SetNoLinksFoundView(final String sharedText){
         TextView resultTV=(TextView) findViewById(R.id.resultTV);
         resultTV.setText(R.string.not_found);
