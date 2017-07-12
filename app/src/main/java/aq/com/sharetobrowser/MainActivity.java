@@ -1,9 +1,14 @@
 package aq.com.sharetobrowser;
 
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,11 +28,47 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        /*
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                Uri uri = Uri.parse(intent.getStringExtra(Intent.EXTRA_TEXT));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, uri);
+                List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(webIntent, 0);
+
+                ListView listViewLinks = (ListView) findViewById(R.id.linksLV);
+                String[] listItems = new String[resInfo.size()];
+
+                for (int i = 0; i < resInfo.size(); i++) {
+                    listItems[i] = resInfo.get(i).activityInfo.packageName; //for package name
+                    //listItems[i] = resInfo.get(i).activityInfo.loadLabel(getPackageManager()).toString(); //for app name
+                }
+
+                final ArrayAdapter adapter = new ArrayAdapter(this,
+                        android.R.layout.simple_list_item_1, listItems);
+                listViewLinks.setAdapter(adapter);
+            }
+        }
+*/
+
         links = new ArrayList<>();
         // Get intent, action and MIME type
         Intent intent = getIntent();
@@ -38,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 handleSendText(intent); // Handle text being sent
             }
         }
+
     }
 
     /**
@@ -112,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
     private void sendWebIntent(String url) {
         Uri uri = Uri.parse(url);
         Intent webIntent = new Intent(Intent.ACTION_VIEW, uri);
+        webIntent.setPackage("info.guardianproject.orfox");
         if (webIntent.resolveActivity(getPackageManager()) != null)
             startActivity(Intent.createChooser(webIntent, ""));
     }
@@ -126,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         TextView resultTV=(TextView) findViewById(R.id.resultTV);
         resultTV.setText(R.string.not_found);
 
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.globalLayout);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.innerLayout);
         RelativeLayout.LayoutParams layoutParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
         layoutParam.addRule(RelativeLayout.BELOW, R.id.resultTV);
 
